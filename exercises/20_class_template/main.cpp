@@ -31,9 +31,7 @@ struct Tensor4D {
     Tensor4D &operator+=(Tensor4D const &others) {
         // TODO: 实现单向广播的加法
         for (int i = 0; i < 4; ++i) {
-            if (shape[i] != others.shape[i] && others.shape[i] != 1) {
-                throw std::invalid_argument("Shape mismatch for broadcasting");
-            }
+            ASSERT(!(shape[i] != others.shape[i] && others.shape[i] != 1), "Shape mismatch for broadcasting");
         }
         unsigned int size = 1;
         for (int i = 0; i < 4; ++i) {
