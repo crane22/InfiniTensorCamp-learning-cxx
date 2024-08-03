@@ -21,10 +21,19 @@ struct TaggedUnion {
 float sigmoid(float x) {
     return 1 / (1 + std::exp(-x));
 }
+template<typename T>
+T sigmoid(T x) {
+    return 1 / (1 + std::exp(-x));
+}
 
 TaggedUnion sigmoid_dyn(TaggedUnion x) {
     TaggedUnion ans{x.type};
     // TODO: 根据 type 调用 sigmoid
+    if (x.type == DataType::Double) {
+        ans.d = sigmoid(x.d);
+    } else if (x.type == DataType::Float) {
+        ans.f = sigmoid(x.f);
+    }
     return ans;
 }
 

@@ -30,6 +30,9 @@ ColorEnum convert_by_pun(Color c) {
     // 但这种写法实际上仅在 C 语言良定义，在 C++ 中是未定义行为。
     // 这是比较少见的 C++ 不与 C 保持兼容的特性。
     // READ: 类型双关 <https://tttapa.github.io/Pages/Programming/Cpp/Practices/type-punning.html>
+
+    // 不用type punning 依然可以实现转换
+    // return static_cast<ColorEnum>(static_cast<int>(c));
     union TypePun {
         ColorEnum e;
         Color c;
@@ -37,6 +40,7 @@ ColorEnum convert_by_pun(Color c) {
 
     TypePun pun;
     // TODO: 补全类型双关转换
+    pun.c = c;
 
     return pun.e;
 }
